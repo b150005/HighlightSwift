@@ -42,6 +42,10 @@ public struct CodeText: View {
         highlightResult = nil
         highlightText(colorScheme: newColorScheme)
       }
+      .onChange(of: text) { newText in
+        highlightResult = nil
+        highlightText(colorScheme: colorScheme)
+      }
   }
   
   private var highlightedText: Text {
