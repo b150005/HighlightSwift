@@ -5,10 +5,10 @@ import SwiftUI
 public struct CodeText: View {
   @Environment(\.colorScheme) private var colorScheme: ColorScheme
   
-  @State var highlightTask: Task<Void, Never>?
-  @State var highlightResult: HighlightResult?
+  @State private var highlightTask: Task<Void, Never>?
+  @State private var highlightResult: HighlightResult?
   
-  let text: String
+  @State private var text: String
   let language: HighlightStyle.Language
   let textStyle: Font.TextStyle
   let onHighlight: ((HighlightResult) -> Void)?
@@ -23,7 +23,7 @@ public struct CodeText: View {
               language: HighlightStyle.Language = .swift,
               textStyle: Font.TextStyle = .footnote,
               onHighlight: ((HighlightResult) -> Void)? = nil) {
-    self.text = text
+    self._text = State(initialValue: text)
     self.language = language
     self.textStyle = textStyle
     self.onHighlight = onHighlight
@@ -106,9 +106,6 @@ struct CodeText_Previews: PreviewProvider {
     """
   
   static var previews: some View {
-    CodeText(code) { result in
-      let attributedText: AttributedString = result.attributed
-      let backgroundColor: Color = result.backgroundColor
-    }
+    CodeText(code)
   }
 }

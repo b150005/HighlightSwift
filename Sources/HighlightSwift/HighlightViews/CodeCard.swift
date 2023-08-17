@@ -5,10 +5,10 @@ import SwiftUI
 public struct CodeCard: View {
   @Environment(\.colorScheme) private var colorScheme: ColorScheme
   
-  @State var showsLanguage: Bool = true
-  @State var highlightResult: HighlightResult?
+  @State private var showsLanguage: Bool = true
+  @State private var highlightResult: HighlightResult?
   
-  let text: String
+  @State private var text: String
   let language: HighlightStyle.Language
   let textStyle: Font.TextStyle
   
@@ -20,7 +20,7 @@ public struct CodeCard: View {
   public init(_ text: String,
               language: HighlightStyle.Language = .swift,
               textStyle: Font.TextStyle = .footnote) {
-    self.text = text
+    self._text = State(initialValue: text)
     self.language = language
     self.textStyle = textStyle
   }
